@@ -14,7 +14,7 @@ class UserRegistered
         $this->message = $message;
     }
 
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }

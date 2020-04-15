@@ -62,10 +62,10 @@ class UserController extends AbstractController
     public function show(RequestInterface $request)
     {
         $id = $request->input("id", 1);
-        $id2 = $this->userService->getById();
+
         $this->userService->sendMessage();
         return [
-            'message' => "show User." . $id2,
+            'message' => "成功注册,用户id." . $id,
         ];
     }
 }

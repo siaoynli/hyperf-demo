@@ -1,4 +1,11 @@
 <?php
+/*
+ * @Author: lixiaoyun
+ * @Company: http://hangzhou.com.cn
+ * @Github: http://github.com/siaoynli
+ * @Date: 2020-04-15 11:23:02
+ * @Description: 
+ */
 
 declare(strict_types=1);
 
@@ -20,15 +27,11 @@ class UserService
      */
     private $eventDispatcher;
 
-    public function getById()
-    {
-        return "by userService";
-    }
 
     public function sendMessage()
     {
-        // 我们假设存在 User 这个实体
-        $sendMessage = "我发送信息了";
+
+        $sendMessage = "register";
         $this->eventDispatcher->dispatch(new UserRegistered($sendMessage));
         return true;
     }
