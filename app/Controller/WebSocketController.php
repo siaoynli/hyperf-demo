@@ -16,6 +16,7 @@ class WebSocketController implements OnMessageInterface, OnOpenInterface, OnClos
 {
     public function onMessage(WebSocketServer $server, Frame $frame): void
     {
+        echo "接收到客户端信息:" . $frame->data . "\n";
         $server->push($frame->fd, 'Recv: ' . $frame->data);
     }
 
@@ -26,6 +27,6 @@ class WebSocketController implements OnMessageInterface, OnOpenInterface, OnClos
 
     public function onOpen(WebSocketServer $server, Request $request): void
     {
-        $server->push($request->fd, 'Opened');
+        $server->push($request->fd, 'WebSocket Opened');
     }
 }
