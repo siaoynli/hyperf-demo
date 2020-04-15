@@ -39,8 +39,8 @@ class UserRegisteredListener implements ListenerInterface
         // $event->user;
         $message = $event->getMessage();
         echo  '获取到信息:' . $message . "\n";
-        $message = new DemoProducer($message);
+        /*  $message = new DemoProducer($message);
         $producer = ApplicationContext::getContainer()->get(Producer::class);
-        echo  '生产:' . $result = $producer->produce($message) . "\n";
+        echo  '生产:' . $result = $producer->produce($message) . "\n"; */
     }
 }

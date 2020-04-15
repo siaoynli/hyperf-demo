@@ -33,6 +33,5 @@ class UserService
 
         $sendMessage = "register";
         $this->eventDispatcher->dispatch(new UserRegistered($sendMessage));
-        return true;
     }
 }

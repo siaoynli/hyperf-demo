@@ -16,6 +16,7 @@ class UserRegistered
 
     public function getMessage(): string
     {
+        echo "------" . $this->message . "\n";
         return $this->message;
     }
 }
