@@ -28,7 +28,9 @@
     "hyperf/amqp": "^1.1",
     "hyperf/elasticsearch": "^1.1",
     "hyperf/websocket-server": "^1.1",
-    "hyperf/websocket-client": "^1.1"
+    "hyperf/websocket-client": "^1.1",
+    "hyperf/constants": "^1.1",
+    "hyperf/snowflake": "^1.1"
   },
   "require-dev": {
     "swoft/swoole-ide-helper": "^4.2",
