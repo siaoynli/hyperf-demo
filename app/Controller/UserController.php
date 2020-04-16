@@ -15,6 +15,8 @@ namespace App\Controller;
 //@AutoController 为绝大多数简单的访问场景提供路由绑定支持，
 //使用 @AutoController 时则 Hyperf 会自动解析所在类的所有 public 方法并提供 GET 和 POST 两种请求方式。
 use App\Model\User;
+use App\Services\Cache\DemoService;
+use App\Services\Cache\UserCacheService;
 
 /**
  * @Controller 为满足更细致的路由定义需求而存在，使用 @Controller 注解用于表明当前类为一个 Controller 类，同时需* *配合 @RequestMapping 注解来对请求方法和请求路径进行更详细的定义。
@@ -31,6 +33,7 @@ use App\Model\User;
 use App\Services\UserService;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\Cache\Annotation\Cacheable;
+use Hyperf\Cache\Annotation\CachePut;
 use Hyperf\HttpServer\Annotation\Controller;
 
 use Hyperf\HttpServer\Annotation\AutoController;
@@ -49,24 +52,56 @@ class UserController extends AbstractController
      */
     private $userService;
 
-    //todo:首次查询时，会从数据库中查，后面查询时，会从缓存中查。缓存还不清楚机制
+    //依赖注入注解
     /**
-     * @Cacheable(prefix="user", ttl=10, listener="user-update")
+     * @Inject()
+     * @var UserCacheService
      */
-    public function index()
+    private $cacheService;
+
+    //todo:首次查询时，会从数据库中查，后面查询时，会从缓存中查。
+    /**
+     * @Cacheable(prefix="user", ttl=1000,value="_#{id}",listener="USER_CACHE")
+     */
+    public function index($id = 10)
     {
-        $user = User::first();
+        $user = User::where("id", $id)->first();
         if ($user) {
+
             return $user->toArray();
         }
         return ["user" =>  $user];
     }
 
 
+    //更新数据同时更新缓存
+    /**
+     * @CachePut(prefix="user", ttl=1000)
+     * @RequestMapping(path="update",methods="get")
+     */
+    public function update()
+    {
+        $user = User::first();
+        $user->name = 'HyperfDoc_' . time();
+        $user->save();
+        return  $user;
+    }
+
 
     /**
-     * @Cacheable(prefix="user", ttl=666 )
+     * @RequestMapping(path="delete",methods="get")
      */
+    public function delete()
+    {
+        $user = User::first();
+        // $this->cacheService->flushCache($user->id);
+        $user->delete();
+        return  $this->cacheService->flushCache($user->id);
+    }
+
+
+
+
     public function getId(int $id)
     {
         //todo:可选参数 没测试通过

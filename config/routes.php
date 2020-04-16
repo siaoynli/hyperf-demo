@@ -40,7 +40,7 @@ Router::get('/cache', 'App\Controller\IndexController@cache');
 
 
 Router::get('/ws', 'App\Controller\IndexController@WebSocket');
-Router::get('/user/index', 'App\Controller\UserController@index');
+Router::get('/user/index/{id}', 'App\Controller\UserController@index');
 Router::get('/user/{id}', 'App\Controller\UserController@getId');
 
 

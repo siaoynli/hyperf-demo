@@ -40,8 +40,8 @@ class UserService
 
     public function flushCache($userId)
     {
+        echo "数据更新，清空缓存\n";
         $this->eventDispatcher->dispatch(new DeleteListenerEvent('user-update', [$userId]));
-
         return true;
     }
 }
