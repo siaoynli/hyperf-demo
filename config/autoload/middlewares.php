@@ -1,6 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
+use App\Middleware\CoreMiddleware;
+
 /**
  * This file is part of Hyperf.
  *
@@ -12,5 +15,6 @@ declare(strict_types=1);
 
 return [
     'http' => [
+        CoreMiddleware::class
     ],
 ];

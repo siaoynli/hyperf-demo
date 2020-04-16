@@ -28,10 +28,10 @@
 
 declare(strict_types=1);
 
-
+use App\Middleware\AuthMiddleware;
 use Hyperf\HttpServer\Router\Router;
 
-Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
+Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index', ['middleware' => [AuthMiddleware::class]]);
 Router::get('/ws', 'App\Controller\IndexController@WebSocket');
 Router::get('/user/index', 'App\Controller\UserController@index');
 

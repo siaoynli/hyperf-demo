@@ -7,6 +7,7 @@ namespace App\Controller;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\WebSocketClient\ClientFactory;
 use Hyperf\WebSocketClient\Frame;
+use Hyperf\View\RenderInterface;
 
 class IndexController extends AbstractController
 {
@@ -18,15 +19,12 @@ class IndexController extends AbstractController
     private $clientFactory;
 
 
-    public function index()
+    public function index(RenderInterface $render)
     {
         $user = $this->request->input('user', 'Hyperf');
         $method = $this->request->getMethod();
 
-        return [
-            'method' => $method,
-            'message' => "Hello {$user}.",
-        ];
+        return $render->render('index', ['name' => 'Hyperf']);
     }
 
     public function WebSocket()
