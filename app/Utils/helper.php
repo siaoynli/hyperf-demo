@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /*
  * @Author: lixiaoyun
  * @Company: http://hangzhou.com.cn
@@ -7,8 +9,9 @@
  * @Description: 
  */
 
-
-function  ping()
-{
-    return "pong";
+if (! function_exists('ping')) {
+    function ping()
+    {
+        return "pong";
+    }
 }

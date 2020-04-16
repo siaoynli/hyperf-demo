@@ -49,6 +49,7 @@ class UserController extends AbstractController
 
     public function index()
     {
+
         return [
             'message' => "Hello User.",
         ];
