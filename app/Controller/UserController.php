@@ -14,7 +14,7 @@ namespace App\Controller;
 
 //@AutoController 为绝大多数简单的访问场景提供路由绑定支持，
 //使用 @AutoController 时则 Hyperf 会自动解析所在类的所有 public 方法并提供 GET 和 POST 两种请求方式。
-use Hyperf\HttpServer\Annotation\AutoController;
+use App\Model\User;
 
 /**
  * @Controller 为满足更细致的路由定义需求而存在，使用 @Controller 注解用于表明当前类为一个 Controller 类，同时需* *配合 @RequestMapping 注解来对请求方法和请求路径进行更详细的定义。
@@ -28,12 +28,14 @@ use Hyperf\HttpServer\Annotation\AutoController;
 // 使用 @PatchMapping 注解时需 use Hyperf\HttpServer\Annotation\PatchMapping; 命名空间；
 // 使用 @DeleteMapping 注解时需 use Hyperf\HttpServer\Annotation\DeleteMapping; 命名空间；
 
-use Hyperf\HttpServer\Annotation\Controller;
-use Hyperf\HttpServer\Contract\RequestInterface;
-use Hyperf\HttpServer\Annotation\RequestMapping;
-use Hyperf\Di\Annotation\Inject;
-
 use App\Services\UserService;
+use Hyperf\Di\Annotation\Inject;
+use Hyperf\Cache\Annotation\Cacheable;
+use Hyperf\HttpServer\Annotation\Controller;
+
+use Hyperf\HttpServer\Annotation\AutoController;
+use Hyperf\HttpServer\Annotation\RequestMapping;
+use Hyperf\HttpServer\Contract\RequestInterface;
 
 /**
  * @Controller()
@@ -47,17 +49,36 @@ class UserController extends AbstractController
      */
     private $userService;
 
+    //todo:首次查询时，会从数据库中查，后面查询时，会从缓存中查。缓存还不清楚机制
+    /**
+     * @Cacheable(prefix="user", ttl=10, listener="user-update")
+     */
     public function index()
     {
+        $user = User::first();
+        if ($user) {
+            return $user->toArray();
+        }
+        return ["user" =>  $user];
+    }
 
-        return [
-            'message' => "Hello User.",
-        ];
+
+
+    /**
+     * @Cacheable(prefix="user", ttl=666 )
+     */
+    public function getId(int $id)
+    {
+        //todo:可选参数 没测试通过
+        // $id = $request->route('id', 1);
+        $user = User::query()->where("id", $id)->first();
+        return ["user" => $user];
     }
 
 
     //访问路径  /user/show?id=1
     /**
+     * //todo:注解路由path传变量不清楚怎么写
      * @RequestMapping(path="show",methods="get")
      */
     public function show(RequestInterface $request)
@@ -68,5 +89,19 @@ class UserController extends AbstractController
         return [
             'message' => "成功注册,用户id." . $id,
         ];
+    }
+
+    /**
+     * @RequestMapping(path="create",methods="get")
+     */
+    public  function create(RequestInterface $request)
+    {
+
+        $name = $request->input("name", "Hyperf");
+        $user = new User();
+        $user->name =  $name . '_' . time();
+        $user->password = "123456";
+        $user->save();
+        return $user;
     }
 }

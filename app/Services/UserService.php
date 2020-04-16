@@ -15,6 +15,7 @@ namespace App\Services;
 
 use App\Event\UserRegistered;
 use Hyperf\Di\Annotation\Inject;
+use Hyperf\Cache\Listener\DeleteListenerEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class UserService
@@ -28,10 +29,19 @@ class UserService
     private $eventDispatcher;
 
 
+
+
     public function sendMessage()
     {
 
         $sendMessage = "register";
         $this->eventDispatcher->dispatch(new UserRegistered($sendMessage));
+    }
+
+    public function flushCache($userId)
+    {
+        $this->eventDispatcher->dispatch(new DeleteListenerEvent('user-update', [$userId]));
+
+        return true;
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+
 use App\Request\UserRequest;
 
 use Hyperf\Di\Annotation\Inject;
@@ -13,7 +14,8 @@ use Hyperf\WebSocketClient\Frame;
 use Hyperf\View\RenderInterface;
 use League\Flysystem\Filesystem;
 use Hyperf\Filesystem\FilesystemFactory;
-use Hyperf\Utils\ApplicationContext;
+
+
 
 class IndexController extends AbstractController
 {
@@ -68,10 +70,10 @@ class IndexController extends AbstractController
         return ["foo" => $this->session->get('foo'), "session_id" => $this->session->getId()];
     }
 
-    public function cache(Container $container)
+    public function cache()
     {
 
-        $cache = $container->get(\Psr\SimpleCache\CacheInterface::class);
+
         $cache = $cache->set("name", "lee", 100);
         return   $cache->get("name");
     }
