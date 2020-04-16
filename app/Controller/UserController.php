@@ -100,6 +100,30 @@ class UserController extends AbstractController
     }
 
 
+    /**
+     * @RequestMapping(path="all",methods="get")
+     * @Cacheable(prefix="users", ttl=1000,listener="USERS_CACHE")
+     */
+    public function all()
+    {
+        $users = User::query()->get();
+        if ($users) {
+
+            return $users->toArray();
+        }
+        return ["users" =>  $users];
+    }
+
+
+    /**
+     * @RequestMapping(path="deleteAll",methods="get")
+     */
+    public function deleteAll()
+    {
+        return  $this->cacheService->flushAllCache();
+    }
+
+
 
 
     public function getId(int $id)

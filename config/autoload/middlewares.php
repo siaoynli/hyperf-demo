@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 return [
     'http' => [
-        //session
+        //session 影响速度
         \Hyperf\Session\Middleware\SessionMiddleware::class,
 
 

@@ -37,6 +37,13 @@ class UserCacheService
         return true;
     }
 
+    public function flushAllCache()
+    {
+        echo  "清空Users缓存\n";
+        $this->dispatcher->dispatch(new DeleteListenerEvent('USERS_CACHE', []));
+        return true;
+    }
+
     /**
      * @CacheEvict(prefix="user", value="_#{id}")
      */
