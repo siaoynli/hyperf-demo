@@ -13,8 +13,13 @@ declare(strict_types=1);
 return [
     'handler' => [
         'http' => [
-            // App\Exception\HttpExceptionHandler::class,
-            App\Exception\Handler\AppExceptionHandler::class,
+
+
+            //验证器
+            \App\Exception\ValidationExceptionHandler::class,
+
+            \App\Exception\Handler\AppExceptionHandler::class,
+
         ],
     ],
 ];

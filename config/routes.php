@@ -34,6 +34,8 @@ use Hyperf\HttpServer\Router\Router;
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index', ['middleware' => [AuthMiddleware::class]]);
 
 Router::get('/oss', 'App\Controller\IndexController@aliyun');
+Router::get('/form', 'App\Controller\IndexController@form');
+Router::get('/session', 'App\Controller\IndexController@session');
 
 
 Router::get('/ws', 'App\Controller\IndexController@WebSocket');

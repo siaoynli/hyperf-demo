@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Middleware\CoreMiddleware;
 
 /**
  * This file is part of Hyperf.
@@ -15,6 +14,13 @@ use App\Middleware\CoreMiddleware;
 
 return [
     'http' => [
-        CoreMiddleware::class
+        //session
+        \Hyperf\Session\Middleware\SessionMiddleware::class,
+
+
+        // 数组内配置您的全局中间件，顺序根据该数组的顺序
+        \Hyperf\Validation\Middleware\ValidationMiddleware::class,
+
+        \App\Middleware\CoreMiddleware::class,
     ],
 ];

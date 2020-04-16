@@ -13,8 +13,8 @@ declare(strict_types=1);
 return [
     'default' => [
         //docker RabbitMQ  ip地址
-        'host' => env('AMQP_HOST', '172.17.0.3'),
-        'port' => env('AMQP_PORT', 5672),
+        'host' => env('AMQP_HOST', 'localhost'),
+        'port' => (int) env('AMQP_PORT', 5672),
         'user' => env('AMQP_USER', 'guest'),
         'password' => env('AMQP_PASSWORD', 'guest'),
         'vhost' => env('AMQP_VHOST', '/'),

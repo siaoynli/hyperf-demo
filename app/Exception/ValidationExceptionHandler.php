@@ -5,25 +5,29 @@ namespace App\Exception;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use Psr\Http\Message\ResponseInterface;
-use Hyperf\Server\Exception\ServerException;
+use Hyperf\Validation\ValidationException;
 use Throwable;
 
-class HttpExceptionHandler extends  ExceptionHandler
+class ValidationExceptionHandler extends  ExceptionHandler
 {
     public function handle(Throwable $throwable, ResponseInterface $response)
     {
-        var_dump($throwable);
+
         // 判断被捕获到的异常是希望被捕获的异常
-        if ($throwable instanceof ServerException) {
+        if ($throwable instanceof ValidationException) {
             // 格式化输出
-            $data = json_encode([
-                'code' => $throwable->getCode(),
-                'message' => $throwable->getMessage(),
-            ], JSON_UNESCAPED_UNICODE);
+            $data = json_encode(
+                //返回所有错误信息
+                // $throwable->validator->errors(),
+                //返回第一条错误信息
+                ["message" => $throwable->validator->errors()->first()],
+                JSON_UNESCAPED_UNICODE
+            );
 
             // 阻止异常冒泡
             $this->stopPropagation();
-            return $response->withStatus(500)->withBody(new SwooleStream($data));
+            // return $response->withStatus($throwable->status)->withBody(new SwooleStream($data));
+            return $response->withStatus(200)->withBody(new SwooleStream($data));
         }
 
         // 交给下一个异常处理器

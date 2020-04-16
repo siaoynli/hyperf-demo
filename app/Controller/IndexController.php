@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Request\UserRequest;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\WebSocketClient\ClientFactory;
 use Hyperf\WebSocketClient\Frame;
@@ -19,6 +20,12 @@ class IndexController extends AbstractController
      * @var ClientFactory
      */
     private $clientFactory;
+
+    /**
+     * @Inject()
+     * @var \Hyperf\Contract\SessionInterface
+     */
+    private $session;
 
 
     public function index(RenderInterface $render)
@@ -39,11 +46,25 @@ class IndexController extends AbstractController
         $exists =  $local->has('path/to/file.txt');
 
         if ($exists) {
-            return  $local->update('path/to/file.txt', 'contents');
+            return   $local->delete('path/to/file.txt');;
         }
         // Write Files
         return $local->write('path/to/file.txt', 'contents');
     }
+
+
+    public function form(UserRequest $request)
+    {
+        $validated = $request->validated();
+        return "ok";
+    }
+
+    public function session()
+    {
+        $this->session->set('foo', 'bar');
+        return ["foo" => $this->session->get('foo'), "session_id" => $this->session->getId()];
+    }
+
 
     public function WebSocket()
     {

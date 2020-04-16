@@ -40,7 +40,9 @@
     "xxtime/flysystem-aliyun-oss": "^1.5",
     "league/flysystem-memory": "^1.0",
     "league/flysystem-aws-s3-v3": "^1.0",
-    "overtrue/flysystem-qiniu": "^1.0"
+    "overtrue/flysystem-qiniu": "^1.0",
+    "hyperf/validation": "^1.1",
+    "hyperf/session": "^1.1"
   },
   "require-dev": {
     "swoft/swoole-ide-helper": "^4.2",
