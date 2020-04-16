@@ -8,6 +8,7 @@
 
 <body>
     Hello, {{ $name }}. You are using blade template now.
+
 </body>
 
 </html>

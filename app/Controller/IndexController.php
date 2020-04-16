@@ -8,6 +8,8 @@ use Hyperf\Di\Annotation\Inject;
 use Hyperf\WebSocketClient\ClientFactory;
 use Hyperf\WebSocketClient\Frame;
 use Hyperf\View\RenderInterface;
+use League\Flysystem\Filesystem;
+use Hyperf\Filesystem\FilesystemFactory;
 
 class IndexController extends AbstractController
 {
@@ -24,7 +26,23 @@ class IndexController extends AbstractController
         $user = $this->request->input('user', 'Hyperf');
         $method = $this->request->getMethod();
 
-        return $render->render('index', ['name' => 'Hyperf']);
+        $name = trans('messages.welcome');
+
+        return $render->render('index', ['name' => $name]);
+    }
+
+
+    public function aliyun(FilesystemFactory $factory)
+    {
+        $local = $factory->get('oss');
+
+        $exists =  $local->has('path/to/file.txt');
+
+        if ($exists) {
+            return  $local->update('path/to/file.txt', 'contents');
+        }
+        // Write Files
+        return $local->write('path/to/file.txt', 'contents');
     }
 
     public function WebSocket()

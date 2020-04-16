@@ -19,7 +19,7 @@
     "hyperf/config": "~1.1.0",
     "hyperf/db-connection": "~1.1.0",
     "hyperf/framework": "~1.1.0",
-    "hyperf/guzzle": "~1.1.0",
+    "hyperf/guzzle": "^1.1",
     "hyperf/http-server": "~1.1.0",
     "hyperf/logger": "~1.1.0",
     "hyperf/memory": "~1.1.0",
@@ -35,7 +35,12 @@
     "hyperf/view": "^1.1",
     "duncan3dc/blade": "^4.8",
     "hyperf/task": "^1.1",
-    "hyperf/translation": "^1.1"
+    "hyperf/translation": "^1.1",
+    "hyperf/filesystem": "^1.1",
+    "xxtime/flysystem-aliyun-oss": "^1.5",
+    "league/flysystem-memory": "^1.0",
+    "league/flysystem-aws-s3-v3": "^1.0",
+    "overtrue/flysystem-qiniu": "^1.0"
   },
   "require-dev": {
     "swoft/swoole-ide-helper": "^4.2",
