@@ -5,7 +5,7 @@
  * @Github: http://github.com/siaoynli
  * @Date: 2020-04-20 15:59:17
  * @LastEditors: lixiaoyun
- * @LastEditTime: 2020-04-20 16:37:36
+ * @LastEditTime: 2020-04-20 16:37:56
  * @Description: 
  */
 
@@ -24,7 +24,7 @@ class Ws
             'task_worker_num' => 4,
         ]);
 
-        $this->ws->on("open", [$this, "onOpen"]);`
+        $this->ws->on("open", [$this, "onOpen"]);
         $this->ws->on("task", [$this, "onTask"]);
         $this->ws->on("finish", [$this, "onFinish"]);
         $this->ws->on("message", [$this, "onMessage"]);
