@@ -1,6 +1,8 @@
 {
     "cSpell.ignoreWords": [
         "aliyun",
-        "hyperf"
+        "hyperf",
+        "server",
+        "swoole"
     ]
 }
