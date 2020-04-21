@@ -1,0 +1,42 @@
+<!--
+ * @Author: lixiaoyun
+ * @Company: http://hangzhou.com.cn
+ * @Github: http://github.com/siaoynli
+ * @Date: 2020-04-20 14:59:39
+ * @LastEditors: lixiaoyun
+ * @LastEditTime: 2020-04-21 15:17:42
+ * @Description: 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      var wsServer = 'ws://127.0.0.1:9501'
+      var websocket = new WebSocket(wsServer)
+      websocket.onopen = function (evt) {
+        websocket.send('set 你好')
+        setTimeout(() => {
+          websocket.send('get')
+        }, 500)
+        console.log('Connected to WebSocket server.')
+      }
+
+      websocket.onclose = function (evt) {
+        console.log('Disconnected')
+      }
+
+      websocket.onmessage = function (evt) {
+        console.log('Retrieved data from server: ' + evt.data)
+      }
+
+      websocket.onerror = function (evt, e) {
+        console.log('Error occured: ' + evt.data)
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
