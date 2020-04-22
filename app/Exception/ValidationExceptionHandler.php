@@ -26,8 +26,8 @@ class ValidationExceptionHandler extends  ExceptionHandler
 
             // 阻止异常冒泡
             $this->stopPropagation();
-            // return $response->withStatus($throwable->status)->withBody(new SwooleStream($data));
-            return $response->withStatus(200)->withBody(new SwooleStream($data));
+            //返回json
+            return $response->withStatus($throwable->status)->withHeader("Content-Type", "application/json")->withBody(new SwooleStream($data));
         }
 
         // 交给下一个异常处理器

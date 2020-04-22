@@ -15,6 +15,7 @@ namespace App\Controller;
 //@AutoController 为绝大多数简单的访问场景提供路由绑定支持，
 //使用 @AutoController 时则 Hyperf 会自动解析所在类的所有 public 方法并提供 GET 和 POST 两种请求方式。
 use App\Model\User;
+use App\Request\UserRequest;
 use App\Services\Cache\DemoService;
 use App\Services\Cache\UserCacheService;
 
@@ -153,9 +154,9 @@ class UserController extends AbstractController
     /**
      * @RequestMapping(path="create",methods="get")
      */
-    public  function create(RequestInterface $request)
+    public  function create(UserRequest $request)
     {
-
+        $validated = $request->validated();
         $name = $request->input("name", "Hyperf");
         $user = new User();
         $user->name =  $name . '_' . time();

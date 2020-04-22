@@ -22,16 +22,16 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|min:5|max:255',
+            'name' => 'required|min:5|max:255',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'title.required' => '标题必须填写',
-            'title.min'  => '标题最小5字节',
-            'title.max'  => '标题最长255字节',
+            'name.required' => '名字必须填写',
+            'name.min'  => '名字最小5字节',
+            'name.max'  => '名字最长255字节',
         ];
     }
 }

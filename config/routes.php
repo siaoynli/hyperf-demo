@@ -37,6 +37,7 @@ Router::get('/oss', 'App\Controller\IndexController@aliyun');
 Router::get('/form', 'App\Controller\IndexController@form');
 Router::get('/session', 'App\Controller\IndexController@session');
 Router::get('/cache', 'App\Controller\IndexController@cache');
+Router::get('/demo', 'App\Controller\IndexController@demo');
 
 
 Router::get('/ws', 'App\Controller\IndexController@WebSocket');

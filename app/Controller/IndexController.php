@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace App\Controller;
 
 
-use App\Request\UserRequest;
+use App\Annotation\User;
 
-use Hyperf\Di\Annotation\Inject;
 use Hyperf\Di\Container;
-use Hyperf\WebSocketClient\ClientFactory;
-use Hyperf\WebSocketClient\Frame;
+use App\Request\UserRequest;
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\View\RenderInterface;
 use League\Flysystem\Filesystem;
+use Hyperf\WebSocketClient\Frame;
 use Hyperf\Filesystem\FilesystemFactory;
+use Hyperf\WebSocketClient\ClientFactory;
 
 
 
@@ -73,7 +74,6 @@ class IndexController extends AbstractController
     public function cache()
     {
 
-
         $cache = $cache->set("name", "lee", 100);
         return   $cache->get("name");
     }
@@ -93,5 +93,15 @@ class IndexController extends AbstractController
         $msg = $client->recv(2);
         // 获取文本数据：$res_msg->data
         return $msg->data;
+    }
+
+
+    /**
+     * user注解类里面的 变量
+     * @User(name="西瓜哥")
+     */
+    public function demo()
+    {
+        return 'Hello Hyperf!';
     }
 }
