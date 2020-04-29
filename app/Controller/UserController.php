@@ -42,7 +42,8 @@ use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\HttpServer\Contract\RequestInterface;
 
 /**
- * @Controller()
+ * //不指定prefix  默认user
+ * @Controller(prefix="users")
  */
 class UserController extends AbstractController
 {
