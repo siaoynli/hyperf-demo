@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @Github: http://github.com/siaoynli
  * @Date: 2020-04-29 14:35:28
  * @LastEditors: lixiaoyun
- * @LastEditTime: 2020-04-29 17:28:18
+ * @LastEditTime: 2020-04-29 17:35:02
  * @Description: 
  */
 
@@ -58,13 +58,42 @@ class ElasticController extends AbstractController
 
         $response = $client->indices()->create($params);
  */
-        //添加文档
+        //创建索引，初始化
         $params = [
+            'index' => 'my_index',
+            'body' => [
+                'settings' => [
+                    'number_of_shards' => 3,
+                    'number_of_replicas' => 2
+                ],
+                'mappings' => [
+                    '_source' => [
+                        'enabled' => true
+                    ],
+                    'properties' => [
+                        'first_name' => [
+                            'type' => 'keyword'
+                        ],
+                        'age' => [
+                            'type' => 'integer'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        // Create the index with mappings and settings now
+        $response = $client->indices()->create($params);
+
+        //添加文档
+        /*    $params = [
             'index' => 'kuangshenshuo',
             'id'    => 1,
             'body'  => ['name' => '狂神说java']
         ];
-        $response = $client->index($params);
+        $response = $client->index($params); */
+
+
+
 
         //获取
         /*       $params = [
