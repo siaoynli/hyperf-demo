@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @Github: http://github.com/siaoynli
  * @Date: 2020-04-29 14:35:28
  * @LastEditors: lixiaoyun
- * @LastEditTime: 2020-04-29 16:43:32
+ * @LastEditTime: 2020-04-29 17:28:18
  * @Description: 
  */
 
@@ -26,13 +26,39 @@ class ElasticController extends AbstractController
     {
         $builder = $this->container->get(ClientBuilderFactory::class)->create();
 
+        //docker
+        //$client = $builder->setHosts(['http://host.docker.internal:9200'])->build();
 
-        $client = $builder->setHosts(['http://host.docker.internal:9200'])->build();
+        //阿里云
 
-        // $info = $client->info();
+        $client = $builder->setHosts([
+            [
+                'host' => 'es-cn-zo21molzq0001f2hr.public.elasticsearch.aliyuncs.com',
+                'port' => '9200',
+                'path' => '',
+                'scheme' => 'http',
+                'user' => 'elastic',
+                'pass' => 'HZ@lxyztx386'
+            ]
+        ])->build();
 
 
-        //创建
+        // $response = $client->info();
+
+        //创建索引
+        /*       $params = [
+            'index' => 'kuangshenshuo',
+            'body'  => [
+                'settings' => [
+                    'number_of_shards' => 5, //分片数
+                    'number_of_replicas' => 1 //副本数
+                ]
+            ]
+        ];
+
+        $response = $client->indices()->create($params);
+ */
+        //添加文档
         $params = [
             'index' => 'kuangshenshuo',
             'id'    => 1,
