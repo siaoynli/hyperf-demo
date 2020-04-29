@@ -14,7 +14,6 @@ declare(strict_types=1);
 Swoole\Coroutine\run(function () {
     $redis = new Swoole\Coroutine\Redis();
     $redis->connect('host.docker.internal', 6379);
-    $val = $redis->keys('l*');
-    var_dump($val);
-    // $redis->set("lo", "123456");
+
+    $redis->set("lo", "123456");
 });

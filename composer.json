@@ -26,7 +26,6 @@
     "hyperf/process": "~1.1.0",
     "hyperf/redis": "~1.1.0",
     "hyperf/amqp": "^1.1",
-    "hyperf/elasticsearch": "^1.1",
     "hyperf/websocket-server": "^1.1",
     "hyperf/websocket-client": "^1.1",
     "hyperf/constants": "^1.1",
@@ -43,7 +42,8 @@
     "overtrue/flysystem-qiniu": "^1.0",
     "hyperf/validation": "^1.1",
     "hyperf/session": "^1.1",
-    "hyperf/paginator": "^1.1"
+    "hyperf/paginator": "^1.1",
+    "hyperf/elasticsearch": "^1.1"
   },
   "require-dev": {
     "swoft/swoole-ide-helper": "^4.2",
