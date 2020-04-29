@@ -44,12 +44,6 @@ Router::get('/demo', 'App\Controller\IndexController@demo');
 Router::get('/es', 'App\Controller\ElasticController@index');
 
 
-Router::get('/ws', 'App\Controller\IndexController@WebSocket');
-Router::get('/user/index/{id}', 'App\Controller\UserController@index');
-Router::get('/user/{id}', 'App\Controller\UserController@getId');
-
-
-
 
 //websocket
 

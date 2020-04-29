@@ -15,7 +15,7 @@ use Hyperf\HttpServer\Contract\ResponseInterface;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 
 /**
- * @Aspect
+ * ////@Aspect
  */
 class FooAspect extends AbstractAspect
 {

@@ -60,12 +60,15 @@ class UserController extends AbstractController
      */
     private $cacheService;
 
-    //todo:首次查询时，会从数据库中查，后面查询时，会从缓存中查。
+    //todo:首次查询时，会从数据库中查，后面查询时，会从缓存中查。 $request->route 从路径里面获取参数可选参数用[]  $request->input  从?id= 获取参数
     /**
-     * @Cacheable(prefix="user", ttl=1000,value="_#{id}",listener="USER_CACHE")
+     * @RequestMapping(path="index/[{id}]",methods="get")
      */
-    public function index($id = 10)
+    public function index(RequestInterface $request)
     {
+
+        //$id = $request->input('id', 114);
+        $id = $request->route('id', 114);
         $user = User::where("id", $id)->first();
         if ($user) {
 
@@ -92,12 +95,17 @@ class UserController extends AbstractController
     /**
      * @RequestMapping(path="delete",methods="get")
      */
-    public function delete()
+    public function delete(RequestInterface $request)
     {
-        $user = User::first();
-        // $this->cacheService->flushCache($user->id);
-        $user->delete();
-        return  $this->cacheService->flushCache($user->id);
+        /*  $id = $request->route('id', 10);
+        // $id = $request->input('id', 1);
+        return "id:" . $id;
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+        }
+        return  $this->cacheService->flushCache($user->id); */
+        return "delete";
     }
 
 
@@ -121,19 +129,10 @@ class UserController extends AbstractController
      */
     public function deleteAll()
     {
-        return  $this->cacheService->flushAllCache();
+        // $this->cacheService->flushAllCache();
+        return  "deleteAll";
     }
 
-
-
-
-    public function getId(int $id)
-    {
-        //todo:可选参数 没测试通过
-        // $id = $request->route('id', 1);
-        $user = User::query()->where("id", $id)->first();
-        return ["user" => $user];
-    }
 
 
     //访问路径  /user/show?id=1

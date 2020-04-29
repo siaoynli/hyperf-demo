@@ -24,7 +24,7 @@ class CoreMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        echo "全局中间件\n";
+        // echo "全局中间件\n";
         return $handler->handle($request);
     }
 }
