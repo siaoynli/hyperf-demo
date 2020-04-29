@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @Github: http://github.com/siaoynli
  * @Date: 2020-04-29 14:35:28
  * @LastEditors: lixiaoyun
- * @LastEditTime: 2020-04-29 15:00:21
+ * @LastEditTime: 2020-04-29 16:35:42
  * @Description: 
  */
 
@@ -27,27 +27,26 @@ class ElasticController extends AbstractController
         $builder = $this->container->get(ClientBuilderFactory::class)->create();
 
 
-        $client = $builder->setHosts(['http://172.17.0.4:9200'])->build();
+        $client = $builder->setHosts(['http://host.docker.internal:9200'])->build();
 
         // $info = $client->info();
 
 
         //创建
-        // $params = [
-        //     'index' => 'kuangshenshuo',
-        //     'type' => "_doc",
-        //     'id'    => 1,
-        //     'body'  => ['name' => '狂神说']
-        // ];
-        // $response = $client->index($params);
+        $params = [
+            'index' => 'kuangshenshuo',
+            'id'    => 1,
+            'body'  => ['name' => '狂神说java']
+        ];
+        $response = $client->index($params);
 
         //获取
-        // $params = [
-        //     'index' => 'kuangshenshuo',
-        //     'type' => "_doc",
-        //     'id'    => 1
-        // ];
-        // $response = $client->get($params);
+        /*       $params = [
+            'index' => 'kuangshenshuo2',
+            // 'type' => "_doc",
+            'id'    => 1
+        ];
+        $response = $client->get($params); */
 
         //获取资源
         /*   $params = [
@@ -57,20 +56,20 @@ class ElasticController extends AbstractController
         ];
         $response = $client->getSource($params); */
 
-        $params = [
-            'index' => 'kuangshenshuo',
-            'body'  => [
-                'query' => [
-                    'match' => [
-                        'name' => '狂神说'
-                    ]
-                ]
-            ]
-        ];
+        // $params = [
+        //     'index' => 'kuangshenshuo',
+        //     'body'  => [
+        //         'query' => [
+        //             'match' => [
+        //                 'name' => '狂神说'
+        //             ]
+        //         ]
+        //     ]
+        // ];
 
-        $response = $client->search($params);
+        // $response = $client->search($params);
 
-        var_dump($response);
+        // var_dump($response);
 
         return $response;
     }
